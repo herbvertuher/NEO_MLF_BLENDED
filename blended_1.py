@@ -125,13 +125,13 @@ X_test_scaled = scaler.transform(X_test)
 
 # %% 17
 
-base_model = LinearRegression().fit(X_train_scaled, y_train)
-y_pred = base_model.predict(X_test_scaled)
+model = LinearRegression().fit(X_train_scaled, y_train)
+y_pred = model.predict(X_test_scaled)
 
 
 # %% 18
 
-r_sq = base_model.score(X_train_scaled, y_train)
+r_sq = model.score(X_train_scaled, y_train)
 mae = mean_absolute_error(y_test, y_pred)
 mape = mean_absolute_percentage_error(y_test, y_pred)
 
