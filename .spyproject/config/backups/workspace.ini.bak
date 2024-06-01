@@ -4,7 +4,7 @@ save_data_on_exit = True
 save_history = True
 save_non_project_files = False
 project_type = 'empty-project-type'
-recent_files = ['blended_1.py', 'datasets\\peoples.csv', 'blended_1.ipynb']
+recent_files = ['C:\\Users\\Yehor\\.spyder-py3\\temp.py', 'blended_3_01.06.2024\\Weather_in_Australia.py']
 
 [main]
 version = 0.2.0
