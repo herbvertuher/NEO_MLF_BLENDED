@@ -9,9 +9,15 @@ from sklearn.metrics import accuracy_score, confusion_matrix
 import seaborn as sns
 import matplotlib.pyplot as plt
 
+pd.set_option("future.no_silent_downcasting", True)
+
 # %%
 
-data = pd.read_csv('../datasets/mod_04_topic_08_petfinder_data.csv.gz')
+try:
+    data = pd.read_csv('./datasets/mod_04_topic_08_petfinder_data.csv.gz')
+except FileNotFoundError:
+    data = pd.read_csv('../datasets/mod_04_topic_08_petfinder_data.csv.gz')
+    
 data.info()
 
 # %%
@@ -138,9 +144,10 @@ pet = pd.DataFrame(
 
 pet[num_cols] = kbins.transform(pet[num_cols]).astype(int).astype(str)
 
-with warnings.catch_warnings():
-    warnings.simplefilter('ignore')
-    pet_enc = encoder.transform(pet)
-    prob = (clf.predict_proba(scaler.transform(pet_enc)).flatten())
+# %%
+
+pet_enc = encoder.transform(pet)
+pet_scaled = scaler.transform(pet_enc)
+prob = clf.predict_proba(pet_scaled).flatten()
 
 print(f'This pet has a {prob[1]:.1%} probability "of getting adopted"')

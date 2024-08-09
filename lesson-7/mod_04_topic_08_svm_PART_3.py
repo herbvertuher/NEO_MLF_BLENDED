@@ -18,9 +18,16 @@ import category_encoders as ce
 
 from custom_transformer import LenOfDescriptionTransformer, OtherCustomTransformers
     
+pd.set_option("future.no_silent_downcasting", True)
+
 # %%
 
-data = pd.read_csv('../datasets/mod_04_topic_08_petfinder_data.csv.gz')
+try:
+    data = pd.read_csv('./datasets/mod_04_topic_08_petfinder_data.csv.gz')
+except FileNotFoundError:
+    data = pd.read_csv('../datasets/mod_04_topic_08_petfinder_data.csv.gz')
+    
+data.info()
 
 # %%
 
@@ -118,6 +125,7 @@ pet = pd.DataFrame(
 pet_pred_proba = clf_model.predict_proba(pet).flatten()
 
 print(f'This pet has a {pet_pred_proba[1]:.1%} probability "of getting adopted"')
+print('==========================')
 
 # %%
 ###
@@ -147,8 +155,8 @@ print(f"Pipe's accuracy on CV: {acc_cv:.1%}")
 # %%
 
 parameters = {
-    'clf_estimator__max_depth': (5),
-    'clf_estimator__max_features': ('sqrt')}
+    'clf_estimator__max_depth': (None, 5),
+    'clf_estimator__max_features': ('sqrt', 0.75)}
 
 search = (GridSearchCV(
     estimator=clf_pipe_model,
@@ -161,7 +169,7 @@ search = (GridSearchCV(
 # %%
 
 parameters_best = search.best_params_
-clf_pipe_model = clf_pipe_model.set_params(**parameters)
+clf_pipe_model = clf_pipe_model.set_params(**parameters_best)
 
 model_upd = clf_pipe_model.fit(X, y)
 
