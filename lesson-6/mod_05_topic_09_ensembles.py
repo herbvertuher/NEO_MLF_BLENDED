@@ -19,12 +19,11 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 # %%
-
-data = pd.read_csv('../datasets/mod_05_topic_09_employee_data.csv')
-data.head()
-
-# %%
-
+try:
+    data = pd.read_csv('./datasets/mod_05_topic_09_employee_data.csv')
+except FileNotFoundError:
+    data = pd.read_csv('../datasets/mod_05_topic_09_employee_data.csv')
+    
 data.info()
 
 # %%
