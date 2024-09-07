@@ -5,12 +5,12 @@ import seaborn as sns
 # %%
 # step 1
 
-df1 = pd.read_csv('../datasets/peoples.csv', sep=',')
+df1 = pd.read_csv('./datasets/peoples.csv', sep=',')
 
 # %%
 # step 2
 
-df2 = pd.read_csv('../datasets/peoples.csv', index_col='ID')
+df2 = pd.read_csv('./datasets/peoples.csv', index_col='ID')
 
 # df2.loc[210]
 df1[df1['ID'] == 210]
@@ -26,24 +26,25 @@ df3 = df2.dropna()
 df4 = df2.copy()
 cols_to_drop = ['Name', 'Address', 'Phone']
 df4 = df4.drop(cols_to_drop, axis=1)
-df4 = df4.drop(columns=cols_to_drop)
+# df4 = df4.drop(columns=cols_to_drop)
 
 # %%
 # step 5
 
-nan_mask = df3.isnull().any(axis=1)
+nan_mask = df4.isnull().any(axis=1)
 
-df5 = df3[nan_mask]
+df5 = df4[nan_mask]
 
 # %%
 # step 6
 
-df6 = df4.drop(index=3)
-df6 = df4[~nan_mask]
+# df6 = df4.drop(index=3)
+# df6 = df4[~nan_mask]
 df6 = df4.dropna()
+
 # df_ff = df2[nan_mask]
 # df_ff = df2[cols_to_drop]
-# df_ff = df2.loc[nan_mask, cols_to_drop]
+df_ff = df2.loc[nan_mask, cols_to_drop]
 
 # %%
 # step 7
@@ -67,8 +68,8 @@ new_df['two'][0] = 888
 
 duplicates_mask = df6.duplicated()
 
-df7 = df6[~duplicates_mask]
-#df7 = df6.drop_duplicates()
+# df7 = df6[~duplicates_mask]
+df7 = df6.drop_duplicates()
 
 
 # %%
@@ -90,7 +91,7 @@ df7.dtypes
 # df7.groupby('Qualification')['Salary'].mean()
 
 # df7.groupby(by=['Country', 'Qualification'])['Salary'].mean()
-# df7.groupby(by=['Country', 'Qualification'])['Salary'].apply(np.mean)
+df7.groupby(by=['Country', 'Qualification'])['Salary'].apply(np.mean)
 
 # %%
 # step 12
@@ -161,7 +162,7 @@ r_sq = model.score(X_test_scaled, y_test)
 mae = mean_absolute_error(y_test, y_pred)
 mape = mean_absolute_percentage_error(y_test, y_pred)
 
-print(f'R2: {r_sq:.2f} | MAE: {mae:.2f} | MAPE: {mape:.2f}')
+print(f'R2: {r_sq:.2f} | MAE: {mae:.2f} | MAPE: {mape:.2%}')
 
 
 # %%

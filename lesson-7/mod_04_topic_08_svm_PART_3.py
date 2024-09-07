@@ -129,7 +129,7 @@ print('==========================')
 
 # %%
 ###
-X_train_transformed = clf_pipe_model[:2].transform(X_train)
+X_train_transformed = clf_pipe_model[:-1].transform(X_train)
 
 # %%
 ###
