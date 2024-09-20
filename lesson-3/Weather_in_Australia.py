@@ -15,7 +15,11 @@ from sklearn import tree
 
 # %%
 
-data = pd.read_csv('../datasets/mod_03_topic_05_weather_data.csv.gz')
+try:
+    data = pd.read_csv('./datasets/mod_03_topic_05_weather_data.csv.gz')
+except FileNotFoundError:
+    data = pd.read_csv('../datasets/mod_03_topic_05_weather_data.csv.gz')
+
 print(data.shape)
 
 # %%

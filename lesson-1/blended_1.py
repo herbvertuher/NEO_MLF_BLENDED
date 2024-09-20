@@ -12,8 +12,8 @@ df1 = pd.read_csv('./datasets/peoples.csv', sep=',')
 
 df2 = pd.read_csv('./datasets/peoples.csv', index_col='ID')
 
-# df2.loc[210]
-df1[df1['ID'] == 210]
+df2.loc[210]
+# df1[df1['ID'] == 210]
 
 # %%
 # step 3
@@ -25,8 +25,8 @@ df3 = df2.dropna()
 
 df4 = df2.copy()
 cols_to_drop = ['Name', 'Address', 'Phone']
-df4 = df4.drop(cols_to_drop, axis=1)
-# df4 = df4.drop(columns=cols_to_drop)
+# df4 = df4.drop(cols_to_drop, axis=1)
+df4 = df4.drop(columns=cols_to_drop)
 
 # %%
 # step 5
@@ -39,8 +39,8 @@ df5 = df4[nan_mask]
 # step 6
 
 # df6 = df4.drop(index=3)
-# df6 = df4[~nan_mask]
-df6 = df4.dropna()
+df6 = df4[~nan_mask]
+# df6 = df4.dropna()
 
 # df_ff = df2[nan_mask]
 # df_ff = df2[cols_to_drop]
@@ -55,7 +55,7 @@ test_df = pd.DataFrame({'one': [1, 2, 3],
 
 # %%
 
-new_df = test_df
+new_df = test_df.copy()
 
 # %%
 
@@ -96,7 +96,7 @@ df7.groupby(by=['Country', 'Qualification'])['Salary'].apply(np.mean)
 # %%
 # step 12
 
-df7['Country'].value_counts(normalize=True)
+df7['Country'].value_counts(normalize=True) * 100
 
 # %%
 # step 13
@@ -178,5 +178,7 @@ df_data1 = california_housing['data']
 df_target = california_housing.target
 
 df_frame = california_housing.frame
+
+# %%
 
 

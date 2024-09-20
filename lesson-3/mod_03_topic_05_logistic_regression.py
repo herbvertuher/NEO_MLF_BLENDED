@@ -11,7 +11,11 @@ import matplotlib.pyplot as plt
 
 # %%
 
-data = pd.read_csv('./datasets/mod_03_topic_05_weather_data.csv.gz')
+try:
+    data = pd.read_csv('./datasets/mod_03_topic_05_weather_data.csv.gz')
+except FileNotFoundError:
+    data = pd.read_csv('../datasets/mod_03_topic_05_weather_data.csv.gz')
+
 data.shape
 
 # %%
@@ -33,7 +37,7 @@ with warnings.catch_warnings():
     tmp = (data
            .groupby('Location')
            .apply(lambda x: x
-                  #x.drop(['Location', 'Date'], axis=1)
+                  .drop(['Location', 'Date'], axis=1)
                   .isna()
                   .mean()))
 
@@ -99,6 +103,9 @@ data_cat[['Year', 'Month']] = (data_cat['Date']
                                .apply(lambda x:
                                       pd.Series([x.year, x.month])))
 
+# data_cat['Year'] = data_cat['Date'].dt.year
+# data_cat['Month'] = data_cat['Date'].dt.month
+    
 data_cat.drop('Date', axis=1, inplace=True)
 
 data_cat[['Year', 'Month']] = data_cat[['Year', 'Month']].astype(str)
@@ -107,7 +114,7 @@ data_cat[['Year', 'Month']].head()
 
 # %%
 
-X_train_num, X_test_num, X_train_cat,  X_test_cat, y_train, y_test = (
+X_train_num, X_test_num, X_train_cat, X_test_cat, y_train, y_test = (
     train_test_split(
         data_num,
         data_cat.drop('RainTomorrow', axis=1),
