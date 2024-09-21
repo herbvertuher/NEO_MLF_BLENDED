@@ -187,7 +187,7 @@ print(classification_report(y_test, pred))
 
 # Pred proba LogisticRegression
 
-threshold = 0.2
+threshold = 0.05
 
 y_pred_proba = pd.Series(clf.predict_proba(X_test)[:,1])
 y_pred = y_pred_proba.apply(lambda x: 'Yes' if x > threshold else 'No')

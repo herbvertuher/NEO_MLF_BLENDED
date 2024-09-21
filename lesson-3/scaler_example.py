@@ -5,7 +5,7 @@ import pandas as pd
 from sklearn.preprocessing import StandardScaler, MinMaxScaler, RobustScaler
 import matplotlib.pyplot as plt
 
-# Генеруємо більший датасет з викидами
+# Генеруємо датасет з викидами
 np.random.seed(42)
 data = np.random.normal(loc=50, scale=10, size=100)  # Дані з нормальним розподілом
 outliers = np.array([300, 350, 400])  # Викиди
