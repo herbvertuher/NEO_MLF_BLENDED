@@ -36,10 +36,12 @@ with warnings.catch_warnings():
     warnings.simplefilter('ignore')
     tmp = (data
            .groupby('Location')
-           .apply(lambda x:
-                  x.drop(['Location', 'Date'], axis=1)
-                  .isna()
-                  .mean()))
+           .apply(lambda x: x
+                            .drop(['Location', 'Date'], axis=1)
+                            .isna()
+                            .mean()
+                 )
+           )
 
 plt.figure(figsize=(9, 15), dpi=100)
 
@@ -183,9 +185,9 @@ print(classification_report(y_test, pred))
 
 # %%
 
-# Pred proba LR
+# Pred proba LogisticRegression
 
-threshold = 0.5
+threshold = 0.2
 
 y_pred_proba = pd.Series(clf.predict_proba(X_test)[:,1])
 y_pred = y_pred_proba.apply(lambda x: 'Yes' if x > threshold else 'No')
@@ -204,12 +206,12 @@ target_class = 'Yes'
 df_proba[
     (df_proba['y_pred_proba'] < threshold) &
     (df_proba['y_test'] == target_class)
-]['y_pred_proba'].hist(bins=20, color='red');
+]['y_pred_proba'].hist(bins=int(threshold*50), color='red');
 
 df_proba[
     (df_proba['y_pred_proba'] >= threshold) &
     (df_proba['y_test'] == target_class)
-]['y_pred_proba'].hist(bins=20, color='green');
+]['y_pred_proba'].hist(bins=int((1-threshold)*50), color='green');
 
 plt.title(f'class = {target_class}');
 
@@ -221,7 +223,7 @@ plt.title(f'class = {target_class}');
 # %%
 # %%
 
-# Forest
+# Pred proba DecisionTreeClassifier
 
 X_train_num, X_test_num, X_train_cat, X_test_cat, y_train, y_test = (
     train_test_split(
@@ -278,8 +280,6 @@ print(classification_report(y_test, pred))
 
 # %% 
 
-# Pred proba DTC
-
 threshold = 0.5
 
 y_pred_proba = pd.Series(dtc.predict_proba(X_test)[:,1])
@@ -300,11 +300,11 @@ target_class = 'Yes'
 df_proba[
     (df_proba['y_pred_proba'] < threshold) &
     (df_proba['y_test'] == target_class)
-]['y_pred_proba'].hist(bins=20, color='red');
+]['y_pred_proba'].hist(bins=int(threshold*50), color='red');
 
 df_proba[
     (df_proba['y_pred_proba'] >= threshold) &
     (df_proba['y_test'] == target_class)
-]['y_pred_proba'].hist(bins=20, color='green');
+]['y_pred_proba'].hist(bins=int((1-threshold)*50), color='green');
 
 plt.title(f'class = {target_class}');
