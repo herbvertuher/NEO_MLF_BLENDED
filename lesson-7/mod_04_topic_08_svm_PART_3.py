@@ -22,6 +22,9 @@ pd.set_option("future.no_silent_downcasting", True)
 
 # %%
 
+from sklearn import set_config
+set_config(transform_output="pandas")
+
 try:
     data = pd.read_csv('./datasets/mod_04_topic_08_petfinder_data.csv.gz')
 except FileNotFoundError:

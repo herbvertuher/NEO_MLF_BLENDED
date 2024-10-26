@@ -43,21 +43,21 @@ with warnings.catch_warnings():
                  )
            )
 
-plt.figure(figsize=(9, 15), dpi=100)
+# plt.figure(figsize=(9, 15), dpi=100)
 
-ax = sns.heatmap(tmp,
-                 cmap='Blues',
-                 linewidth=0.5,
-                 square=True,
-                 cbar_kws=dict(
-                     location="bottom",
-                     pad=0.01,
-                     shrink=0.25))
+# ax = sns.heatmap(tmp,
+#                  cmap='Blues',
+#                  linewidth=0.5,
+#                  square=True,
+#                  cbar_kws=dict(
+#                      location="bottom",
+#                      pad=0.01,
+#                      shrink=0.25))
 
-ax.xaxis.tick_top()
-ax.tick_params(axis='x', labelrotation=90)
+# ax.xaxis.tick_top()
+# ax.tick_params(axis='x', labelrotation=90)
 
-plt.show()
+# plt.show()
 
 # %%
 
@@ -74,20 +74,20 @@ data_cat = data.select_dtypes(include='object')
 
 melted = data_num.melt()
 
-g = sns.FacetGrid(melted,
-                  col='variable',
-                  col_wrap=4,
-                  sharex=False,
-                  sharey=False,
-                  aspect=1.25)
+# g = sns.FacetGrid(melted,
+#                   col='variable',
+#                   col_wrap=4,
+#                   sharex=False,
+#                   sharey=False,
+#                   aspect=1.25)
 
-g.map(sns.histplot, 'value', bins=20)
+# g.map(sns.histplot, 'value', bins=20)
 
-g.set_titles(col_template='{col_name}')
+# g.set_titles(col_template='{col_name}')
 
-g.tight_layout()
+# g.tight_layout()
 
-plt.show()
+# plt.show()
 
 # %%
 
@@ -187,7 +187,7 @@ print(classification_report(y_test, pred))
 
 # Pred proba LogisticRegression
 
-threshold = 0.05
+threshold = 0.4
 
 y_pred_proba = pd.Series(clf.predict_proba(X_test)[:,1])
 y_pred = y_pred_proba.apply(lambda x: 'Yes' if x > threshold else 'No')

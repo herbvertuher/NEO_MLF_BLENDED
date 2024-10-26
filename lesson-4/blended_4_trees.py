@@ -6,7 +6,7 @@ from sklearn import tree
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import balanced_accuracy_score
 from imblearn.over_sampling import SMOTE
-from sklearn.preprocessing import LabelEncoder, OneHotEncoder
+from sklearn.preprocessing import LabelEncoder, OneHotEncoder, TargetEncoder
 from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import RandomizedSearchCV
 from sklearn.linear_model import LogisticRegression
@@ -53,7 +53,7 @@ cats = X_train.select_dtypes('object').columns
 # , handle_unknown='ignore'
 enc = OneHotEncoder(sparse_output=False, handle_unknown='ignore').set_output(transform='pandas')
 
-X_train_enc = enc.fit_transform(X_train[cats])
+X_train_enc = enc.fit_transform(X_train[cats], y_train)
 X_test_enc = enc.transform(X_test[cats])
 
 X_train = pd.concat([X_train, X_train_enc], axis=1).drop(columns=cats)
@@ -102,7 +102,7 @@ y_res.value_counts(normalize=True)
 
 clf_upd = (tree.DecisionTreeClassifier(
     max_depth=4,
-    random_state=42)
+    random_state=42)  # 42 41
     .fit(X_res, y_res))
 
 y_pred_upd = clf_upd.predict(X_test)

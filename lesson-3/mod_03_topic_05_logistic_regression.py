@@ -37,7 +37,7 @@ with warnings.catch_warnings():
     tmp = (data
            .groupby('Location')
            .apply(lambda x: x
-                  .drop(['Location', 'Date'], axis=1)
+                  #.drop(['Location', 'Date'], axis=1)
                   .isna()
                   .mean()))
 
