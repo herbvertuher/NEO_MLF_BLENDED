@@ -2,4 +2,5 @@
 .ipynb_checkpoints/
 datasets/create_dataset.py
 MACHINE-LEARNING-NEO/
+lesson-8/rsconnect-python/lesson-8.json
 */__pycache__
